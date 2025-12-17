@@ -1,9 +1,18 @@
-cmake_minimum_required(VERSION 3.16)
+cmake_minimum_required(VERSION 3.23)
 
 # Set some basic project attributes
-project (Snake
+project (
+	Snake
 	VERSION 0.1
-	DESCRIPTION "A Game Project")
+	DESCRIPTION "A Game Project"
+	LANGUAGES CXX 
+)
+	
+	
+	
+# Set the C++ standard to C++20
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 	
 	
 	
@@ -13,7 +22,7 @@ project (Snake
 #set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/$<CONFIGURATION>")
 
 
-add_subdirectory(vendored/SDL EXCLUDE_FROM_ALL)
+add_subdirectory(vendor/SDL EXCLUDE_FROM_ALL)
 
 # This project will output an executable file
 add_executable(${PROJECT_NAME} 
