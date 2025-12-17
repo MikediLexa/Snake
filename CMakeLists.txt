@@ -17,29 +17,46 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 	
 	
 # set the output directory for built objects.
-# This makes sure that the dynamic library goes into the build directory automatically.
-#set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/$<CONFIGURATION>")
-#set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/$<CONFIGURATION>")
+#  This makes sure that the dynamic library goes into the build directory automatically.
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/$<CONFIGURATION>")
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/$<CONFIGURATION>")
 
-
-add_subdirectory(vendor/SDL EXCLUDE_FROM_ALL)
 
 # This project will output an executable file
 add_executable(${PROJECT_NAME} 
 	src/main.cpp
-	src/Game/Position.cpp
-	src/Game/Board.cpp
-	src/Game/Snake.cpp
-	src/Game/Food.cpp
-	src/Game/Game.cpp
-	src/gui/Window.cpp
+#	src/Game/Position.cpp
+#	src/Game/Board.cpp
+#	src/Game/Snake.cpp
+#	src/Game/Food.cpp
+#	src/Game/Game.cpp
+#	src/gui/Window.cpp
 )
 
-add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
-  COMMAND ${CMAKE_COMMAND} -E copy_if_different
-          "${CMAKE_SOURCE_DIR}/assets/hello.jpg"
-          "$<TARGET_FILE_DIR:${PROJECT_NAME}>/hello.jpg"
-)
+if(APPLE)
+  set_target_properties(Snake PROPERTIES
+    INSTALL_RPATH "@executable_path;@loader_path"
+    BUILD_WITH_INSTALL_RPATH TRUE
+    MACOSX_RPATH TRUE
+  )
+elseif(UNIX)
+  set_target_properties(Snake PROPERTIES
+    INSTALL_RPATH "$ORIGIN"
+    BUILD_WITH_INSTALL_RPATH TRUE
+  )
+endif()
+
+# Specify that we want to build SDL_TTF's dependencies
+set(SDLTTF_VENDORED ON) 
+
+# Set a variable for our vendor directory
+set(VENDOR_DIR "${PROJECT_SOURCE_DIR}/vendor") 
+
+# Add the SDL libraries from our submodules
+add_subdirectory(${VENDOR_DIR}/SDL) 
+add_subdirectory(${VENDOR_DIR}/SDL_image) 
+add_subdirectory(${VENDOR_DIR}/SDL_ttf)
+
 
 # Create a simple configuration header
 configure_file(config.h.in config.h)
@@ -53,4 +70,9 @@ target_include_directories(${PROJECT_NAME}
 )
 
 # Link to the actual SDL3 library.
-target_link_libraries(${PROJECT_NAME} PRIVATE SDL3::SDL3)
+target_link_libraries(
+  Snake 
+  SDL3::SDL3 
+  SDL3_image::SDL3_image 
+  SDL3_ttf::SDL3_ttf 
+)
