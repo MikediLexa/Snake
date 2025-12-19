@@ -13,20 +13,9 @@ public:
   Window() {
     SDLWindow = SDL_CreateWindow(
       "Hello Window",
-      800, 300, 0
+      1024, 768, 0
     );
 
-  const auto* Fmt = SDL_GetPixelFormatDetails(
-    GetSurface()->format
-  );
-
-  SDL_FillSurfaceRect(
-    GetSurface(),
-    nullptr,
-    SDL_MapRGB(Fmt, nullptr, 50, 50, 50)
-  );
-
-  SDL_UpdateWindowSurface(SDLWindow);
   }
 
   SDL_Surface* GetSurface() const {
@@ -41,6 +30,23 @@ public:
       SDL_DestroyWindow(SDLWindow);
     }
   }
+
+	void Render() {
+		const auto* Fmt = SDL_GetPixelFormatDetails(
+		  GetSurface()->format
+		);
+
+		SDL_FillSurfaceRect(
+		  GetSurface(),
+		  nullptr,
+		  SDL_MapRGB(Fmt, nullptr, 50, 50, 50)
+		);
+	}
+
+
+	void Update() {
+		SDL_UpdateWindowSurface(SDLWindow);
+	}
 
 private:
   SDL_Window* SDLWindow{nullptr};
