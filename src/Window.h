@@ -8,28 +8,18 @@
 #pragma once
 #include <SDL3/SDL.h>
 
+
+const char* GameName{"Snake"};
+
 class Window {
 public:
-  Window() {
-    SDLWindow = SDL_CreateWindow(
-      "Hello Window",
-      1024, 768, 0
-    );
+	Window() {
+		SDLWindow = SDL_CreateWindow(
+		  GameName,
+		  1024, 768, 0
+		);
+	}
 
-  }
-
-  SDL_Surface* GetSurface() const {
-      return SDL_GetWindowSurface(SDLWindow);
-  }
-
-  Window(const Window&) = delete;
-  Window& operator=(const Window&) = delete;
-
-  ~Window() {
-    if (SDLWindow && SDL_WasInit(SDL_INIT_VIDEO)) {
-      SDL_DestroyWindow(SDLWindow);
-    }
-  }
 
 	void Render() {
 		const auto* Fmt = SDL_GetPixelFormatDetails(
@@ -47,6 +37,20 @@ public:
 	void Update() {
 		SDL_UpdateWindowSurface(SDLWindow);
 	}
+
+
+	  SDL_Surface* GetSurface() const {
+		  return SDL_GetWindowSurface(SDLWindow);
+	  }
+
+	  Window(const Window&) = delete;
+	  Window& operator=(const Window&) = delete;
+
+	  ~Window() {
+		if (SDLWindow && SDL_WasInit(SDL_INIT_VIDEO)) {
+		  SDL_DestroyWindow(SDLWindow);
+		}
+	  }
 
 private:
   SDL_Window* SDLWindow{nullptr};

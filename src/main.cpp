@@ -17,13 +17,13 @@ int main(int, char**) {
   while (IsRunning) { 							// Main-Loop
 
 
+    		std::cout << "Hi\n";
 	  // 1. Process Events
     while (SDL_PollEvent(&Event)) {				// diese Schleife läuft, solange Events in PollEvent-Queue anstehen.
     	if (Event.type == SDL_EVENT_QUIT) {
         IsRunning = false;
       }
 	  // 2. Update Objects
-
 
 	  // 3. Render Changes
     	//Render Background Color
