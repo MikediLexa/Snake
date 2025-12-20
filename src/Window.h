@@ -16,9 +16,13 @@ public:
 	Window() {
 		SDLWindow = SDL_CreateWindow(
 		  GameName,
-		  1024, 768, 0
+		  GetWidth(), GetHeight(),
+		  0
 		);
 	}
+
+	int GetWidth() const { return 700; }
+	int GetHeight() const { return 300; }
 
 
 	void Render() {

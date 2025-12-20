@@ -3,13 +3,14 @@
 #include <iostream>
 #include "ErrorHandling.h"
 #include "Window.h"
-
+#include "Rectangle.h"
 
 
 int main(int, char**) {
   SDL_Init(SDL_INIT_VIDEO);
 
   Window GameWindow;
+  Rectangle Rect{SDL_Rect{50,50,50,50}};
 
   bool IsRunning = true;
   SDL_Event Event;
@@ -17,12 +18,12 @@ int main(int, char**) {
   while (IsRunning) { 							// Main-Loop
 
 
-    		std::cout << "Hi\n";
+
 	  // 1. Process Events
     while (SDL_PollEvent(&Event)) {				// diese Schleife läuft, solange Events in PollEvent-Queue anstehen.
-    	if (Event.type == SDL_EVENT_QUIT) {
-        IsRunning = false;
-      }
+    	Rect.HandleEvent(Event);
+    	if (Event.type == SDL_EVENT_QUIT) 					{ IsRunning = false; }
+
 	  // 2. Update Objects
 
 	  // 3. Render Changes
@@ -30,7 +31,7 @@ int main(int, char**) {
         GameWindow.Render();
 
         // Render everything else
-        // ...
+        Rect.Render(GameWindow.GetSurface());
 
         GameWindow.Update(); // swap buffers
     }
