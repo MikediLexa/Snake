@@ -1,28 +1,21 @@
 #pragma once
 #include <SDL3/SDL.h>
-#include "Header.h"
-#include "Grid.h"
-#include "Footer.h"
+#include "Button.h"
+#include "SettingsMenu.h"
 
 class UI {
 public:
-	void Render(SDL_Surface* Surface) const
-	{
-		TopMenu.Render(Surface);
-		Rectangles.Render(Surface);
-		BottomMenu.Render(Surface);
-	}
+  void Render(SDL_Surface* Surface) const {
+    SettingsButton.Render(Surface);
+    Settings.Render(Surface);
+  }
 
-	void HandleEvent(SDL_Event& E)
-	{
-		TopMenu.HandleEvent(E);
-		Rectangles.HandleEvent(E);
-		BottomMenu.HandleEvent(E);
-	}
+  void HandleEvent(SDL_Event& E) {
+    SettingsButton.HandleEvent(E);
+    Settings.HandleEvent(E);
+  }
 
 private:
-	Header TopMenu;
-	Grid Rectangles;
-	Footer BottomMenu;
-
+  Button SettingsButton{{50, 50, 50, 50}};
+  SettingsMenu Settings;
 };
