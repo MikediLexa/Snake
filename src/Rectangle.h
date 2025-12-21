@@ -11,9 +11,7 @@
 
 class Rectangle {
 public:
-	Rectangle(
-			const SDL_Rect& Rect
-	)
+	Rectangle(const SDL_Rect& Rect)
 		: Rect{Rect}
 	{}
 
@@ -56,6 +54,7 @@ public:
 		}
 	}
 
+	virtual ~Rectangle() = default;
 
 private:
 	SDL_Rect Rect;
