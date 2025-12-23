@@ -1,25 +1,20 @@
 #include <SDL3/SDL.h>
 #include <SDL3/SDL_main.h>
+#include <SDL3_image/SDL_image.h>
 #include "Window.h"
 #include "Image.h"
-#include <iostream>
 
 int main(int, char**) {
   SDL_Init(SDL_INIT_VIDEO);
   Window GameWindow;
 
   std::string BASE_PATH{SDL_GetBasePath()};
-  std::string IMAGE_PATH{BASE_PATH + "/assets/pic2.bmp"};
-
-  Image Example(
-		  IMAGE_PATH,
-		  GameWindow.GetSurface()->format
-	  );
+  std::string IMAGE_PATH{BASE_PATH + "assets/example.png"};
+  Image Example(  IMAGE_PATH  );
 
   bool IsRunning = true;
   SDL_Event Event;
 
-  std::cout << SDL_GetBasePath();
   while (IsRunning) {
     while (SDL_PollEvent(&Event)) {
       if (Event.type == SDL_EVENT_QUIT) {

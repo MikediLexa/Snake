@@ -15,7 +15,6 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 	
 	
-	
 # set the output directory for built objects.
 #  This makes sure that the dynamic library goes into the build directory automatically.
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/$<CONFIGURATION>")
@@ -25,6 +24,7 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/$<CONFIGURATION>")
 # This project will output an executable file
 add_executable(${PROJECT_NAME} 
 	src/main.cpp
+	src/Image.cpp
 )
 
 if(APPLE)
@@ -70,3 +70,6 @@ target_link_libraries(
   SDL3_image::SDL3_image 
   SDL3_ttf::SDL3_ttf 
 )
+
+#Export von Compiler Commands für die IDE
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)

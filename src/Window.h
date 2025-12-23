@@ -1,5 +1,6 @@
 #pragma once
 #include <SDL3/SDL.h>
+#include <SDL3_image/SDL_image.h>
 
 class Window {
 public:
@@ -28,6 +29,11 @@ public:
   SDL_Surface* GetSurface() const {
     return SDL_GetWindowSurface(SDLWindow);
   }
+
+	void TakeScreenshot() const {
+		IMG_SaveJPG(GetSurface(), "Screenshot.jpg", 90);}
+
+
 
   Window(const Window&) = delete;
   Window& operator=(const Window&) = delete;
