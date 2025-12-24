@@ -24,7 +24,6 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/$<CONFIGURATION>")
 # This project will output an executable file
 add_executable(${PROJECT_NAME} 
 	src/main.cpp
-	src/Image.cpp
 )
 
 if(APPLE)

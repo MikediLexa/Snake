@@ -1,25 +1,17 @@
 #pragma once
 #include <SDL3/SDL.h>
-#include <SDL3_image/SDL_image.h>
 
 class Window {
 public:
   Window() {
-    SDLWindow = SDL_CreateWindow(
-      "My Program", 600, 300, 0
-    );
+    SDLWindow = SDL_CreateWindow("My Program", 600, 300, 0);
   }
 
   void Render() {
-    const auto* Fmt = SDL_GetPixelFormatDetails(
-      GetSurface()->format
-    );
+    const auto* Fmt = SDL_GetPixelFormatDetails(GetSurface()->format);
 
-    SDL_FillSurfaceRect(
-      GetSurface(),
-      nullptr,
-      SDL_MapRGB(Fmt, nullptr, 50, 50, 50)
-    );
+    SDL_FillSurfaceRect(GetSurface(), nullptr,
+                        SDL_MapRGB(Fmt, nullptr, 50, 50, 50));
   }
 
   void Update() {
@@ -29,11 +21,6 @@ public:
   SDL_Surface* GetSurface() const {
     return SDL_GetWindowSurface(SDLWindow);
   }
-
-	void TakeScreenshot() const {
-		IMG_SaveJPG(GetSurface(), "Screenshot.jpg", 90);}
-
-
 
   Window(const Window&) = delete;
   Window& operator=(const Window&) = delete;
