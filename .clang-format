@@ -3,7 +3,7 @@ IndentWidth: 4
 TabWidth: 4
 UseTab: Never
 
-ColumnLimit: 50
+ColumnLimit: 70
 
 BreakBeforeBraces: Attach
 AllowShortFunctionsOnASingleLine: true
